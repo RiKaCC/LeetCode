@@ -18,44 +18,31 @@ type ListNode struct {
 }
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	v := 0
-	ret := &ListNode{}
-	head = ret
+	if l1 == nil && l2 == nil {
+		return nil
+	}
 
-	for l1 != nil && l2 != nil {
-		ret.Val = l1.Val + l2.Val + v
-		if ret.Val >= 10 {
-			ret.Val = ret.Val % 10
-			v = 1
-		} else {
-			v = 0
+	n3 := new(ListNode)
+	head := n3 // 保留头节点
+	next := 0
+
+	for (l1 != nil) || (l2 != nil) || (next > 0) {
+		n3.Next =  new(ListNode)
+		n3 = n3.Next
+
+		if l1 != nil {
+			next += l1.Val
+			l1 = l1.Next
 		}
 
-		l1 = l1.Next
-		l2 = l2.Next
+		if l2 != nil {
+			next += l2.Val
+			l2 = l2.Next
+		}
 
-		ret.Next = new(ListNode)
-		ret = ret.Next
-
+		n3.Val = next % 10
+		next = next / 10
 	}
 
-	for l1 != nil {
-		ret.Val = l1.Val
-		ret.Next = new(ListNode)
-		ret = ret.Next
-		l1 = l1.Next
-	}
-
-	for l2 != nil {
-		ret.Val = l2.Val
-		ret.Next = new(ListNode)
-		ret = ret.Next
-		l2 = l2.Next
-	}
-
-	return head
-}
-
-func main() {
-
+	return head.Next
 }
